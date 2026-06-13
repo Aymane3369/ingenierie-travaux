@@ -658,6 +658,9 @@ const init = () => {
 }
 
 window.onload = init
-window.addEventListener("resize", initWidthHeight);
+window.addEventListener("resize", () => {
+    initWidthHeight();
+    newGame();
+});
     </script>
 </html>
