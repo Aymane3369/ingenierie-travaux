@@ -774,30 +774,31 @@ ${langCode === 'ar' ? 'Write the Arabic text right-to-left naturally.' : ''}
 JSON to translate:
 ${JSON.stringify({ title: originals[id].title, body: originals[id].body })}`;
 
-      const resp = await fetch('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          model: 'claude-sonnet-4-6',
-          max_tokens: 1000,
-          messages: [{ role: 'user', content: prompt }]
-        })
-      });
+const titleResponse = await fetch(
+  `https://translate.googleapis.com/translate_a/single?client=gtx&sl=fr&tl=${langCode}&dt=t&q=${encodeURIComponent(originals[id].title)}`
+);
 
-      const data = await resp.json();
-      const raw  = data.content.map(c => c.text || '').join('');
-      const clean = raw.replace(/```json|```/g, '').trim();
-      const parsed = JSON.parse(clean);
+const bodyResponse = await fetch(
+  `https://translate.googleapis.com/translate_a/single?client=gtx&sl=fr&tl=${langCode}&dt=t&q=${encodeURIComponent(originals[id].body)}`
+);
 
+const titleData = await titleResponse.json();
+const bodyData = await bodyResponse.json();
+
+const translatedTitle = titleData[0].map(x => x[0]).join('');
+const translatedBody = bodyData[0].map(x => x[0]).join('');
       /* update DOM */
       const titleEl = document.getElementById('title-' + id);
       const bodyEl  = document.getElementById('body-' + id);
       const tagEl   = document.getElementById('tag-' + id);
       const restoreItem = document.getElementById('restore-item-' + id);
 
-      titleEl.textContent = parsed.title || originals[id].title;
-      bodyEl.innerHTML = (parsed.body || originals[id].body)
-        .split('\n').map(p => `<p>${esc(p)}</p>`).join('');
+    titleEl.textContent = translatedTitle;
+
+bodyEl.innerHTML = translatedBody
+  .split('\n')
+  .map(p => `<p>${esc(p)}</p>`)
+  .join('');
 
       if (langCode === 'ar') {
         titleEl.setAttribute('dir', 'rtl');
