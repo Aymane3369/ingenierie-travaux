@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Game Hub Console</title>
+  <title>Game Hub Ultra Console</title>
 
   <style>
     :root {
-      --bg: #050505;
+      --bg1: #05070a;
       --text: #fff;
       --card: rgba(255,255,255,0.06);
       --border: rgba(255,255,255,0.12);
@@ -13,7 +13,7 @@
     }
 
     body.light {
-      --bg: #f5f5f5;
+      --bg1: #eef3ff;
       --text: #111;
       --card: rgba(0,0,0,0.05);
       --border: rgba(0,0,0,0.15);
@@ -21,7 +21,7 @@
     }
 
     body.neon {
-      --bg: #000;
+      --bg1: #000;
       --text: #fff;
       --card: rgba(255,255,255,0.04);
       --border: #ff00ff;
@@ -30,27 +30,77 @@
 
     body {
       margin: 0;
-      background: var(--bg);
-      color: var(--text);
       font-family: monospace;
+      overflow: hidden;
+      color: var(--text);
+      background: var(--bg1);
+      transition: 0.4s;
       height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      overflow: hidden;
-      transition: 0.4s;
     }
 
-    /* ===== BOOT ===== */
+    /* ======================
+       🌊 BACKGROUND WAVES
+    ====================== */
+    .waves {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 0;
+      opacity: 0.6;
+    }
+
+    .wave {
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 30% 30%, rgba(0,255,204,0.25), transparent 60%);
+      animation: moveWave 12s linear infinite;
+      filter: blur(40px);
+    }
+
+    .wave:nth-child(2) {
+      animation-duration: 18s;
+      opacity: 0.5;
+    }
+
+    .wave:nth-child(3) {
+      animation-duration: 25s;
+      opacity: 0.3;
+    }
+
+    @keyframes moveWave {
+      0% { transform: translate(-20%, -20%) rotate(0deg); }
+      50% { transform: translate(20%, 10%) rotate(180deg); }
+      100% { transform: translate(-20%, -20%) rotate(360deg); }
+    }
+
+    /* ======================
+       ✨ PARTICLES CANVAS
+    ====================== */
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1;
+    }
+
+    /* ======================
+       BOOT SCREEN
+    ====================== */
     #boot {
       position: fixed;
       inset: 0;
       background: black;
+      z-index: 999;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      z-index: 999;
     }
 
     #boot h1 {
@@ -85,10 +135,14 @@
       to { opacity: 1; }
     }
 
-    /* ===== UI ===== */
+    /* ======================
+       UI MENU
+    ====================== */
 
     .container {
-      width: 440px;
+      position: relative;
+      z-index: 2;
+      width: 460px;
     }
 
     .title {
@@ -108,15 +162,12 @@
       padding: 16px;
       background: var(--card);
       border: 1px solid var(--border);
+      border-radius: 12px;
       cursor: pointer;
       display: flex;
       justify-content: space-between;
       transition: 0.15s;
-      border-radius: 10px;
-    }
-
-    .item:hover {
-      transform: scale(1.02);
+      backdrop-filter: blur(10px);
     }
 
     .item.selected {
@@ -129,10 +180,10 @@
       margin-top: 15px;
       text-align: center;
       font-size: 11px;
-      opacity: 0.5;
+      opacity: 0.6;
     }
 
-    /* ===== ICON THEME BUTTON ===== */
+    /* ===== THEME BUTTON ICON ===== */
     .theme-btn {
       position: absolute;
       top: 15px;
@@ -142,34 +193,35 @@
       border-radius: 50%;
       border: 1px solid var(--border);
       background: var(--card);
-      color: var(--text);
       cursor: pointer;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      z-index: 3;
       font-size: 18px;
-      transition: 0.2s;
-    }
-
-    .theme-btn:hover {
-      transform: scale(1.1) rotate(10deg);
-      box-shadow: 0 0 15px var(--glow);
     }
   </style>
 </head>
 
 <body>
 
-<!-- ===== BOOT ===== -->
+<!-- 🌊 WAVES -->
+<div class="waves">
+  <div class="wave"></div>
+  <div class="wave"></div>
+  <div class="wave"></div>
+</div>
+
+<!-- ✨ PARTICLES -->
+<canvas id="particles"></canvas>
+
+<!-- BOOT -->
 <div id="boot">
-  <h1>Bienvenue dans votre espace détente</h1>
+  <h1>PLAYSTATION</h1>
   <div class="bar"></div>
 </div>
 
-<!-- ===== ICON THEME ===== -->
+<!-- THEME -->
 <button class="theme-btn" onclick="cycleTheme()">☀</button>
 
-<!-- ===== MENU ===== -->
+<!-- MENU -->
 <div class="container">
   <div class="title">GAME HUB // CONSOLE</div>
 
@@ -191,104 +243,127 @@
 </div>
 
 <script>
-/* =========================
-   🔊 SOUND ENGINE (NO FILES)
-========================= */
-
+/* ======================
+   🔊 SOUND ENGINE
+====================== */
 let audioCtx;
 
-function beep(freq, duration, type = "sine", volume = 0.05) {
-  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-
-  const osc = audioCtx.createOscillator();
-  const gain = audioCtx.createGain();
-
-  osc.type = type;
-  osc.frequency.value = freq;
-
-  gain.gain.value = volume;
-
-  osc.connect(gain);
-  gain.connect(audioCtx.destination);
-
-  osc.start();
-  osc.stop(audioCtx.currentTime + duration);
+function beep(f, d, t="sine", v=0.05){
+  if(!audioCtx) audioCtx = new (window.AudioContext||window.webkitAudioContext)();
+  const o = audioCtx.createOscillator();
+  const g = audioCtx.createGain();
+  o.type=t; o.frequency.value=f;
+  g.gain.value=v;
+  o.connect(g); g.connect(audioCtx.destination);
+  o.start(); o.stop(audioCtx.currentTime+d);
 }
 
-/* Sounds */
-function soundMove() {
-  beep(420, 0.05, "sine", 0.03);
-}
+function moveSound(){ beep(420,0.05); }
+function selectSound(){ beep(820,0.08,"triangle",0.06); }
 
-function soundSelect() {
-  beep(820, 0.08, "triangle", 0.06);
-}
+/* BOOT SOUND */
+setTimeout(()=>beep(200,0.2),200);
+setTimeout(()=>beep(350,0.2),500);
 
-function soundBoot() {
-  setTimeout(() => beep(200, 0.2, "sine", 0.04), 300);
-  setTimeout(() => beep(300, 0.2, "sine", 0.04), 600);
-}
+/* BOOT REMOVE */
+setTimeout(()=>{
+  document.getElementById("boot").style.opacity="0";
+  setTimeout(()=>document.getElementById("boot").remove(),800);
+},2200);
 
-/* ===== BOOT ===== */
-soundBoot();
+/* ======================
+   MENU
+====================== */
+const items=document.querySelectorAll(".item");
+let index=0;
 
-setTimeout(() => {
-  document.getElementById("boot").style.opacity = "0";
-  setTimeout(() => document.getElementById("boot").remove(), 800);
-}, 2500);
-
-/* ===== MENU ===== */
-const items = document.querySelectorAll(".item");
-let index = 0;
-
-function update() {
-  items.forEach(i => i.classList.remove("selected"));
+function update(){
+  items.forEach(i=>i.classList.remove("selected"));
   items[index].classList.add("selected");
 }
 
-function go(url) {
-  soundSelect();
-  setTimeout(() => window.location.href = url, 120);
+function go(url){
+  selectSound();
+  setTimeout(()=>location.href=url,120);
 }
 
-document.addEventListener("keydown", (e) => {
-  if (e.key === "ArrowDown") {
-    index = (index + 1) % items.length;
-    update();
-    soundMove();
+document.addEventListener("keydown",(e)=>{
+  if(e.key==="ArrowDown"){
+    index=(index+1)%items.length;
+    update(); moveSound();
   }
-
-  if (e.key === "ArrowUp") {
-    index = (index - 1 + items.length) % items.length;
-    update();
-    soundMove();
+  if(e.key==="ArrowUp"){
+    index=(index-1+items.length)%items.length;
+    update(); moveSound();
   }
-
-  if (e.key === "Enter") {
-    items[index].click();
-  }
+  if(e.key==="Enter") items[index].click();
 });
 
-/* ===== THEMES ===== */
-const themes = ["default", "light", "neon"];
-let t = 0;
+/* ======================
+   THEME
+====================== */
+const themes=["default","light","neon"];
+let t=0;
 
-function cycleTheme() {
-  document.body.classList.remove("light", "neon");
-
-  t = (t + 1) % themes.length;
-
-  if (themes[t] === "light") document.body.classList.add("light");
-  if (themes[t] === "neon") document.body.classList.add("neon");
-
-  soundMove();
-  localStorage.setItem("theme", themes[t]);
+function cycleTheme(){
+  document.body.classList.remove("light","neon");
+  t=(t+1)%themes.length;
+  if(themes[t]==="light") document.body.classList.add("light");
+  if(themes[t]==="neon") document.body.classList.add("neon");
+  moveSound();
+  localStorage.setItem("theme",themes[t]);
 }
 
-/* load theme */
-const saved = localStorage.getItem("theme");
-if (saved === "light") document.body.classList.add("light");
-if (saved === "neon") document.body.classList.add("neon");
+const saved=localStorage.getItem("theme");
+if(saved==="light") document.body.classList.add("light");
+if(saved==="neon") document.body.classList.add("neon");
+
+/* ======================
+   ✨ PARTICLES SYSTEM
+====================== */
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
+
+canvas.width=innerWidth;
+canvas.height=innerHeight;
+
+let particles=[];
+
+for(let i=0;i<60;i++){
+  particles.push({
+    x:Math.random()*canvas.width,
+    y:Math.random()*canvas.height,
+    r:Math.random()*2+1,
+    dx:(Math.random()-0.5)*0.3,
+    dy:(Math.random()-0.5)*0.3
+  });
+}
+
+function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  for(let p of particles){
+    p.x+=p.dx;
+    p.y+=p.dy;
+
+    if(p.x<0||p.x>canvas.width) p.dx*=-1;
+    if(p.y<0||p.y>canvas.height) p.dy*=-1;
+
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fillStyle="rgba(255,255,255,0.5)";
+    ctx.fill();
+  }
+
+  requestAnimationFrame(animate);
+}
+
+animate();
+
+window.addEventListener("resize",()=>{
+  canvas.width=innerWidth;
+  canvas.height=innerHeight;
+});
 </script>
 
 </body>
