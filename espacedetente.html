@@ -7,24 +7,24 @@
     :root {
       --bg: #050505;
       --text: #fff;
-      --card: #111;
-      --border: #222;
+      --card: rgba(255,255,255,0.06);
+      --border: rgba(255,255,255,0.12);
       --glow: #00ffcc;
     }
 
     body.light {
-      --bg: #f2f2f2;
+      --bg: #f5f5f5;
       --text: #111;
-      --card: #ffffff;
-      --border: #ddd;
+      --card: rgba(0,0,0,0.05);
+      --border: rgba(0,0,0,0.15);
       --glow: #0077ff;
     }
 
     body.neon {
       --bg: #000;
       --text: #fff;
-      --card: #0a0a0a;
-      --border: #00ffcc;
+      --card: rgba(255,255,255,0.04);
+      --border: #ff00ff;
       --glow: #ff00ff;
     }
 
@@ -41,29 +41,26 @@
       transition: 0.4s;
     }
 
-    /* ===== BOOT SCREEN (PS5 STYLE) ===== */
+    /* ===== BOOT ===== */
     #boot {
       position: fixed;
       inset: 0;
       background: black;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
-      flex-direction: column;
       z-index: 999;
-      animation: fadeOut 2.5s ease forwards;
-      animation-delay: 2.5s;
     }
 
     #boot h1 {
-      font-size: 28px;
-      letter-spacing: 6px;
+      letter-spacing: 8px;
       opacity: 0;
-      animation: fadeIn 1.5s ease forwards;
+      animation: fadeIn 1.5s forwards;
     }
 
     .bar {
-      width: 200px;
+      width: 220px;
       height: 2px;
       background: #222;
       margin-top: 20px;
@@ -72,39 +69,31 @@
 
     .bar::after {
       content: "";
-      display: block;
       width: 40%;
       height: 100%;
       background: white;
-      animation: load 1.5s infinite;
+      display: block;
+      animation: load 1.2s infinite;
     }
 
     @keyframes load {
-      0% { transform: translateX(-100%); }
-      100% { transform: translateX(300%); }
+      0% { transform: translateX(-120%); }
+      100% { transform: translateX(320%); }
     }
 
     @keyframes fadeIn {
       to { opacity: 1; }
     }
 
-    @keyframes fadeOut {
-      to {
-        opacity: 0;
-        visibility: hidden;
-      }
-    }
-
     /* ===== UI ===== */
 
     .container {
-      width: 420px;
+      width: 440px;
     }
 
     .title {
       text-align: center;
       margin-bottom: 20px;
-      font-size: 18px;
       letter-spacing: 4px;
       opacity: 0.8;
     }
@@ -116,19 +105,24 @@
     }
 
     .item {
-      padding: 15px;
+      padding: 16px;
       background: var(--card);
       border: 1px solid var(--border);
       cursor: pointer;
       display: flex;
       justify-content: space-between;
-      transition: 0.2s;
+      transition: 0.15s;
+      border-radius: 10px;
+    }
+
+    .item:hover {
+      transform: scale(1.02);
     }
 
     .item.selected {
       border: 1px solid var(--glow);
-      box-shadow: 0 0 20px var(--glow);
-      transform: scale(1.03);
+      box-shadow: 0 0 25px var(--glow);
+      transform: scale(1.04);
     }
 
     .hint {
@@ -138,31 +132,42 @@
       opacity: 0.5;
     }
 
-    /* bouton thème */
+    /* ===== ICON THEME BUTTON ===== */
     .theme-btn {
       position: absolute;
       top: 15px;
       right: 15px;
-      padding: 8px 12px;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
       border: 1px solid var(--border);
       background: var(--card);
       color: var(--text);
       cursor: pointer;
-      font-family: monospace;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 18px;
+      transition: 0.2s;
+    }
+
+    .theme-btn:hover {
+      transform: scale(1.1) rotate(10deg);
+      box-shadow: 0 0 15px var(--glow);
     }
   </style>
 </head>
 
 <body>
 
-<!-- ===== BOOT PS5 ===== -->
+<!-- ===== BOOT ===== -->
 <div id="boot">
-  <h1>Bienvenue! Dans votre Espace de détente</h1>
+  <h1>PLAYSTATION</h1>
   <div class="bar"></div>
 </div>
 
-<!-- ===== THEME BUTTON ===== -->
-<button class="theme-btn" onclick="cycleTheme()">THEME</button>
+<!-- ===== ICON THEME ===== -->
+<button class="theme-btn" onclick="cycleTheme()">☀</button>
 
 <!-- ===== MENU ===== -->
 <div class="container">
@@ -170,7 +175,7 @@
 
   <div class="menu">
     <div class="item selected" onclick="go('game-balls.html')">
-      🎮 Game Balls <span>PLAY</span>
+      🎮 Game Balls <span>▶</span>
     </div>
 
     <div class="item" onclick="go('games/game-2.html')">
@@ -186,59 +191,104 @@
 </div>
 
 <script>
-  // ===== BOOT REMOVE =====
-  setTimeout(() => {
-    document.getElementById("boot").remove();
-  }, 3000);
+/* =========================
+   🔊 SOUND ENGINE (NO FILES)
+========================= */
 
-  // ===== MENU NAV =====
-  const items = document.querySelectorAll(".item");
-  let index = 0;
+let audioCtx;
 
-  function update() {
-    items.forEach(i => i.classList.remove("selected"));
-    items[index].classList.add("selected");
+function beep(freq, duration, type = "sine", volume = 0.05) {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+
+  osc.type = type;
+  osc.frequency.value = freq;
+
+  gain.gain.value = volume;
+
+  osc.connect(gain);
+  gain.connect(audioCtx.destination);
+
+  osc.start();
+  osc.stop(audioCtx.currentTime + duration);
+}
+
+/* Sounds */
+function soundMove() {
+  beep(420, 0.05, "sine", 0.03);
+}
+
+function soundSelect() {
+  beep(820, 0.08, "triangle", 0.06);
+}
+
+function soundBoot() {
+  setTimeout(() => beep(200, 0.2, "sine", 0.04), 300);
+  setTimeout(() => beep(300, 0.2, "sine", 0.04), 600);
+}
+
+/* ===== BOOT ===== */
+soundBoot();
+
+setTimeout(() => {
+  document.getElementById("boot").style.opacity = "0";
+  setTimeout(() => document.getElementById("boot").remove(), 800);
+}, 2500);
+
+/* ===== MENU ===== */
+const items = document.querySelectorAll(".item");
+let index = 0;
+
+function update() {
+  items.forEach(i => i.classList.remove("selected"));
+  items[index].classList.add("selected");
+}
+
+function go(url) {
+  soundSelect();
+  setTimeout(() => window.location.href = url, 120);
+}
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "ArrowDown") {
+    index = (index + 1) % items.length;
+    update();
+    soundMove();
   }
 
-  function go(url) {
-    window.location.href = url;
+  if (e.key === "ArrowUp") {
+    index = (index - 1 + items.length) % items.length;
+    update();
+    soundMove();
   }
 
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "ArrowDown") {
-      index = (index + 1) % items.length;
-      update();
-    }
-
-    if (e.key === "ArrowUp") {
-      index = (index - 1 + items.length) % items.length;
-      update();
-    }
-
-    if (e.key === "Enter") {
-      items[index].click();
-    }
-  });
-
-  // ===== THEMES =====
-  const themes = ["default", "light", "neon"];
-  let t = 0;
-
-  function cycleTheme() {
-    document.body.classList.remove("light", "neon");
-
-    t = (t + 1) % themes.length;
-
-    if (themes[t] === "light") document.body.classList.add("light");
-    if (themes[t] === "neon") document.body.classList.add("neon");
-
-    localStorage.setItem("theme", themes[t]);
+  if (e.key === "Enter") {
+    items[index].click();
   }
+});
 
-  // load theme
-  const saved = localStorage.getItem("theme");
-  if (saved === "light") document.body.classList.add("light");
-  if (saved === "neon") document.body.classList.add("neon");
+/* ===== THEMES ===== */
+const themes = ["default", "light", "neon"];
+let t = 0;
+
+function cycleTheme() {
+  document.body.classList.remove("light", "neon");
+
+  t = (t + 1) % themes.length;
+
+  if (themes[t] === "light") document.body.classList.add("light");
+  if (themes[t] === "neon") document.body.classList.add("neon");
+
+  soundMove();
+  localStorage.setItem("theme", themes[t]);
+}
+
+/* load theme */
+const saved = localStorage.getItem("theme");
+if (saved === "light") document.body.classList.add("light");
+if (saved === "neon") document.body.classList.add("neon");
 </script>
 
 </body>
