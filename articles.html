@@ -372,6 +372,16 @@ mark { background:var(--accent-dim); color:var(--accent); border-radius:3px; pad
 
   </style>  
 </head>  
+  <div id="translate-menu" style="display:none;position:fixed;top:70px;right:20px;
+background:var(--surface);border:1px solid var(--border);border-radius:10px;
+padding:0.5rem;z-index:999;min-width:140px;">
+
+  <button onclick="translatePage('fr')">🇫🇷 Français</button><br>
+  <button onclick="translatePage('en')">🇬🇧 English</button><br>
+  <button onclick="translatePage('es')">🇪🇸 Español</button><br>
+  <button onclick="translatePage('ar')">🇸🇦 العربية</button>
+
+</div>
 <body>  <!-- ═══ HEADER ═══ -->  <header>  
   <a class="brand" href="#"><span class="brand-dot"></span>Le Journal</a>  
   <div class="header-right">  
@@ -385,6 +395,9 @@ mark { background:var(--accent-dim); color:var(--accent); border-radius:3px; pad
     </div>  
   </div>  
 </header>  <!-- ═══ HERO ═══ -->  <section class="hero">  
+  <div class="icon-btn" onclick="toggleTranslateMenu()" title="Traduire">
+  🌐
+</div>
   <div class="hero-eyebrow"><span></span>Plateforme éditoriale</div>  
   <h1>Actualités &amp; Articles</h1>  
   <p>Retrouve ici toutes les publications de la rédaction — décryptages, analyses et reportages.</p>  
@@ -464,6 +477,30 @@ mark { background:var(--accent-dim); color:var(--accent); border-radius:3px; pad
       </ul>  
     </div>  
   </aside>  </div>  <!-- ═══ FIREBASE ═══ -->  <script type="module">  
+    const fbApp = initializeApp(firebaseConfig);
+const auth  = getAuth(fbApp);
+const db    = getFirestore(fbApp);
+    async function translateText(text, target) {
+  if (!text || !text.trim()) return text;
+
+  try {
+    const res = await fetch("https://libretranslate.com/translate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        q: text,
+        source: "auto",
+        target,
+        format: "text"
+      })
+    });
+
+    const data = await res.json();
+    return data.translatedText || text;
+  } catch {
+    return text;
+  }
+}
   import { initializeApp }  
     from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";  
   import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged }  
@@ -490,6 +527,7 @@ mark { background:var(--accent-dim); color:var(--accent); border-radius:3px; pad
   let isAdmin    = false;  
   let editingId  = null;  
   let allArticles = [];  // cache local  
+    
   
   /* ─── THEME ─── */  
   window.toggleTheme = () => {  
@@ -765,5 +803,42 @@ mark { background:var(--accent-dim); color:var(--accent); border-radius:3px; pad
     const re = new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`, 'gi');  
     return safe.replace(re, '<mark>$1</mark>');  
   }  
+    window.translatePage = async (lang) => {
+  document.getElementById("translate-menu").style.display = "none";
+
+  if (lang === "ar") {
+    document.body.style.direction = "rtl";
+    document.body.style.textAlign = "right";
+  } else {
+    document.body.style.direction = "ltr";
+    document.body.style.textAlign = "left";
+  }
+
+  const elements = document.querySelectorAll(
+    "h1, h2, h3, p, span, button, a, label, div.article-title, div.article-body"
+  );
+
+  const cache = new Map();
+
+  for (let el of elements) {
+    const text = el.innerText?.trim();
+
+    if (!text || text.length < 2) continue;
+
+    const key = lang + text;
+
+    if (cache.has(key)) {
+      el.innerText = cache.get(key);
+      continue;
+    }
+
+    const translated = await translateText(text, lang);
+    cache.set(key, translated);
+
+    el.innerText = translated;
+  }
+
+  localStorage.setItem("lang", lang);
+};
 </script>  </body>  
 </html>
