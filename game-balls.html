@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Game Balls</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tomorrow:wght@600&display=swap" rel="stylesheet">
+    <script src="https://code.createjs.com/1.0.0/soundjs.min.js"></script>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <div id="container">
+        <canvas id="canvas"></canvas>
+        <span id="Fps"><i>fps</i><span id="nbrfps"></span></span>
+        <div id="info">0</div>
+        <span id="checkbowaudio">🔊</span>
+        <div id="endgame">GAME OVER <br><br><span id="score"></span></div>
+    </div>
+
+<script>
+let c, ctx, W, H;
+let gamePlay = true;
+let dots = [], booms = [], same = [];
+let rad, diam;
+let colors = ['#FF1818', '#F4E104', '#029DFF','#E018FF'];
+let player, colorPlayer, nbrPlayer = 0;
+let mouse, touch;
+let lastTimeCalled;
+let countPoints = 0, lineEndY = 0, nbrBallsLevel = 4;
+
+const random = (max=1, min=0) => Math.random() * (max - min) + min;
+
+const init = () => {
+  c = document.getElementById("canvas");
+  ctx = c.getContext("2d");
+  c.width = window.innerWidth;
+  c.height = window.innerHeight;
+  W = c.width; H = c.height;
+
+  newPlayer();
+  requestAnimationFrame(animate);
+}
+
+class Player {
+  constructor(x,y,rad,mq){
+    this.x=x;this.y=y;this.rad=rad;this.mq=mq;
+    this.t=0;this.run=false;this.play=false;
+  }
+  update(){
+    ctx.beginPath();
+    ctx.fillStyle = colors[this.mq];
+    ctx.arc(this.x,this.y,this.rad,0,Math.PI*2);
+    ctx.fill();
+  }
+}
+
+function newPlayer(){
+  rad = W/16;
+  player = new Player(W/2,H-100,rad,~~random(4));
+}
+
+function animate(){
+  ctx.clearRect(0,0,W,H);
+  player.update();
+  requestAnimationFrame(animate);
+}
+
+window.onload = init;
+</script>
+
+</body>
+</html>
