@@ -5,36 +5,89 @@
   <style>
     body {
       margin: 0;
-      font-family: Arial;
-      background: #111;
+      font-family: Arial, sans-serif;
+      background: radial-gradient(circle at top, #1a1a1a, #0d0d0d);
       color: white;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
     }
-    .menu { display:flex; gap:20px; }
+
+    .menu {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 20px;
+      width: 80%;
+      max-width: 700px;
+    }
+
     .card {
-      width: 200px;
       height: 150px;
-      background: #222;
-      border-radius: 15px;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      cursor:pointer;
-      transition:0.3s;
-      color:white;
-      text-decoration:none;
-      font-size:18px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      cursor: pointer;
+      text-decoration: none;
+      color: white;
+      font-size: 18px;
+      transition: 0.25s ease;
+      backdrop-filter: blur(10px);
+      position: relative;
+      overflow: hidden;
     }
-    .card:hover { transform: scale(1.05); background:#333; }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+      transform: rotate(45deg);
+      top: -50%;
+      left: -50%;
+      transition: 0.5s;
+    }
+
+    .card:hover {
+      transform: translateY(-6px) scale(1.03);
+      border-color: rgba(255, 255, 255, 0.3);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    .card:hover::before {
+      top: 50%;
+      left: 50%;
+    }
+
+    .tag {
+      font-size: 12px;
+      opacity: 0.6;
+      margin-top: 5px;
+    }
   </style>
 </head>
+
 <body>
-  <a class="card" href="game-balls.html">🎮 Game Balls</a>
-    <a class="card" href="games/game-2.html">🧩 Game 2[En cours]</a>
-    <a class="card" href="games/game-3.html">🚀 Game 3[En cours]</a>
+  <div class="menu">
+    <a class="card" href="game-balls.html">
+      🎮 Game Balls
+      <div class="tag">Playable</div>
+    </a>
+
+    <a class="card" href="games/game-2.html">
+      🧩 Game 2
+      <div class="tag">En cours</div>
+    </a>
+
+    <a class="card" href="games/game-3.html">
+      🚀 Game 3
+      <div class="tag">En cours</div>
+    </a>
   </div>
 </body>
 </html>
