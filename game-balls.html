@@ -1,9 +1,9 @@
-<!-- Created by lolo -->
+<!-- Created by AA -->
 
 <!--
     NAME : Game Balls
     DATE : December 19, 2021
-    AUTHOR : lolo
+    AUTHOR : AA
 -->
 <!DOCTYPE html>
 <html>
@@ -633,12 +633,11 @@ const loadAudio = () => {
 }
 
 const initWidthHeight = () => {
-    c.width = W = innerWidth 
-    c.height = H = innerHeight
-    if(innerWidth > innerHeight){
-            c.width = W = innerHeight*0.6
-            container.style.width = W + "px"
-        }
+    c.width = W = window.innerWidth;
+    c.height = H = window.innerHeight;
+
+    container.style.width = "100%";
+    container.style.height = "100%";
 }
 
 const init = () => {
