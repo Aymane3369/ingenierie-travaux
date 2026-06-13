@@ -638,7 +638,12 @@ const initWidthHeight = () => {
 
     container.style.width = "100%";
     container.style.height = "100%";
-}
+
+    // 🔥 important : recalcul du jeu
+    if (dots.length > 0) {
+        createBall();
+    }
+};
 
 const init = () => {
     c = document.getElementById("canvas")
