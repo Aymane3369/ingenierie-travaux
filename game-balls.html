@@ -602,13 +602,14 @@ const endGame = () => {
 }
 
 const newGame = () => {
-    dots = []
-    nbrPlayer = 0
-    countPoints = 0
-    info.innerText = countPoints
-    newPlayer()
-    createBall()
-}
+    dots = [];
+    nbrPlayer = 0;
+    countPoints = 0;
+    info.innerText = countPoints;
+
+    createBall();   // 🔥 important
+    newPlayer();
+};
 
 const animate = () => {
     if(gamePlay){
