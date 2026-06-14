@@ -49,8 +49,8 @@
       white-space: nowrap;">
    ☕ cadeau café
 </a>
-<input id="L" type="number" placeholder="Longueur L (m)">
-<input id="Q" type="number" placeholder="Charge Q">
+<input id="L" type="number" placeholder="Longueur L [m]">
+<input id="Q" type="number" placeholder="Charge Q [KN]">
 
 <br>
 
@@ -87,7 +87,7 @@ function build(){
     }
 
     document.getElementById("result").innerText =
-        "Mf = " + Mf.toFixed(2) + " (KN.m) → " + msg;
+        "Mf = " + Mf.toFixed(2) + " [KN.m] → " + msg;
 
     drawBeam(L);
 }
