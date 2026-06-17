@@ -1,5 +1,5 @@
 {
-  "name": "ingenierie-travaux",
+  "name": "Site-BE",
   "version": "1.0.0",
   "dependencies": {
     "stripe": "^14.24.0"
