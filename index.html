@@ -1,512 +1,667 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2601668568046762"
-     crossorigin="anonymous"></script>
-   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-HXSZCHYD64"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+   <!-- Google Ads & Analytics (conservés) -->
+   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2601668568046762" crossorigin="anonymous"></script>
+   <script async src="https://www.googletagmanager.com/gtag/js?id=G-HXSZCHYD64"></script>
+   <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-HXSZCHYD64');
+   </script>
+   <meta charset="UTF-8">
+   <meta name="google-site-verification" content="5Ntfenm84ASmO-7ipWvDEN6PSxfCgttqB-c0kCpXMLw" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta name="keywords" content="BET structure, ingénierie structure, béton armé, Eurocodes, calcul structure">
+   <meta name="author" content="BET STRUCTURE">
+   <title>BET STRUCTURE | Ingénierie & Calcul de Structures</title>
+   <meta name="description" content="Bureau d'études structure spécialisé en béton armé, acier, diagnostic et réhabilitation selon Eurocodes.">
 
-  gtag('config', 'G-HXSZCHYD64');
-</script>
-<meta charset="UTF-8">
-<meta name="google-site-verification" content="5Ntfenm84ASmO-7ipWvDEN6PSxfCgttqB-c0kCpXMLw" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <!-- Google Fonts (plus élégantes) -->
+   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-<meta name="keywords" content="BET structure, ingénierie structure, béton armé, Eurocodes, calcul structure">
-<meta name="author" content="BET STRUCTURE">
+   <style>
+      /* ============================================
+         DESIGN SYSTEM ULTRA PREMIUM – 2026
+      ============================================ */
+      * {
+         margin: 0;
+         padding: 0;
+         box-sizing: border-box;
+      }
 
-<title>BET STRUCTURE | Ingénierie & Calcul de Structures</title>
-<meta name="description" content="Bureau d'études structure spécialisé en béton armé, acier, diagnostic et réhabilitation selon Eurocodes.">
+      :root {
+         --bg: #0a0e1a;
+         --bg-light: #f0f3ff;
+         --panel: rgba(255, 255, 255, 0.05);
+         --panel-hover: rgba(255, 255, 255, 0.10);
+         --border: rgba(255, 255, 255, 0.08);
+         --text: #f0f5ff;
+         --muted: #b0bedd;
+         --gold: #dbb65a;
+         --gold-glow: #f5d98f;
+         --shadow: 0 20px 40px -12px rgba(0,0,0,0.6);
+         --radius: 20px;
+      }
 
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+      body {
+         font-family: 'Inter', sans-serif;
+         background: var(--bg);
+         color: var(--text);
+         overflow-x: hidden;
+         transition: background 0.4s ease, color 0.4s ease;
+         line-height: 1.5;
+      }
 
-<style>
+      body.light {
+         --bg: #f0f3ff;
+         --panel: rgba(0, 0, 0, 0.03);
+         --panel-hover: rgba(0, 0, 0, 0.07);
+         --border: rgba(0, 0, 0, 0.10);
+         --text: #121826;
+         --muted: #3e4560;
+         --gold: #b3892a;
+         --gold-glow: #dbb65a;
+         --shadow: 0 20px 40px -12px rgba(0,0,0,0.15);
+      }
 
-/* =========================
-   ULTRA PREMIUM DESIGN SYSTEM
-========================= */
+      /* --- Fond animé (gradient + orbes) --- */
+      .bg-orb {
+         position: fixed;
+         border-radius: 50%;
+         filter: blur(80px);
+         opacity: 0.25;
+         pointer-events: none;
+         z-index: 0;
+         transition: opacity 0.6s;
+      }
+      .orb1 {
+         width: 40vw;
+         height: 40vw;
+         top: -10%;
+         left: -10%;
+         background: radial-gradient(circle, #dbb65a, transparent);
+         animation: orbFloat 18s ease-in-out infinite alternate;
+      }
+      .orb2 {
+         width: 50vw;
+         height: 50vw;
+         bottom: -20%;
+         right: -10%;
+         background: radial-gradient(circle, #6a7bff, transparent);
+         animation: orbFloat 22s ease-in-out infinite alternate-reverse;
+      }
+      @keyframes orbFloat {
+         0% { transform: translate(0, 0) scale(1); }
+         100% { transform: translate(40px, -30px) scale(1.1); }
+      }
 
-:root{
-  --bg:#05070d;
-  --panel:rgba(255,255,255,0.04);
-  --panel2:rgba(255,255,255,0.06);
-  --stroke:rgba(255,255,255,0.08);
-  --text:#eaf0ff;
-  --muted:#a9b4d0;
-  --gold:#d6b25e;
-  --gold2:#ffcc70;
-}
+      /* --- Header glassmorphique --- */
+      header {
+         position: fixed;
+         top: 0;
+         left: 0;
+         width: 100%;
+         z-index: 1000;
+         backdrop-filter: blur(18px) saturate(1.2);
+         background: rgba(10, 14, 26, 0.65);
+         border-bottom: 1px solid var(--border);
+         padding: 14px 30px;
+         transition: background 0.3s;
+      }
+      body.light header {
+         background: rgba(240, 243, 255, 0.75);
+      }
+      .header-wrap {
+         max-width: 1300px;
+         margin: 0 auto;
+         display: flex;
+         align-items: center;
+         justify-content: space-between;
+         flex-wrap: wrap;
+         gap: 12px;
+      }
+      .logo {
+         font-weight: 800;
+         font-size: 20px;
+         letter-spacing: 1px;
+         background: linear-gradient(135deg, var(--gold), var(--gold-glow));
+         -webkit-background-clip: text;
+         -webkit-text-fill-color: transparent;
+         background-clip: text;
+      }
+      .logo span { font-weight: 400; -webkit-text-fill-color: var(--muted); }
 
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'Montserrat', sans-serif;
-}
+      nav {
+         display: flex;
+         align-items: center;
+         gap: 8px;
+         flex-wrap: wrap;
+      }
+      nav ul {
+         display: flex;
+         gap: 6px;
+         list-style: none;
+         flex-wrap: wrap;
+      }
+      nav a {
+         color: var(--muted);
+         text-decoration: none;
+         font-size: 13px;
+         font-weight: 500;
+         padding: 6px 12px;
+         border-radius: 40px;
+         transition: 0.25s ease;
+         letter-spacing: 0.3px;
+         background: transparent;
+      }
+      nav a:hover {
+         background: var(--panel-hover);
+         color: var(--gold);
+         transform: translateY(-1px);
+      }
+      .theme-btn {
+         background: var(--panel);
+         border: 1px solid var(--border);
+         color: var(--text);
+         padding: 6px 12px;
+         border-radius: 40px;
+         cursor: pointer;
+         font-size: 16px;
+         transition: 0.25s;
+         backdrop-filter: blur(4px);
+      }
+      .theme-btn:hover {
+         background: var(--gold);
+         color: #0a0e1a;
+      }
 
-body{
-  background: radial-gradient(circle at top, #0b1020, var(--bg));
-  color:var(--text);
-  overflow-x:hidden;
-}
-   body.light{
-  --bg:#f5f7ff;
-  --panel:rgba(0,0,0,0.05);
-  --panel2:rgba(0,0,0,0.08);
-  --stroke:rgba(0,0,0,0.15);
-  --text:#111;
-  --muted:#444;
-  --gold:#b38b2a;
-  --gold2:#d6b25e;
-}
+      /* --- Hero section --- */
+      .hero {
+         min-height: 100vh;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         text-align: center;
+         padding: 120px 20px 60px;
+         position: relative;
+         z-index: 1;
+      }
+      .hero-content {
+         max-width: 900px;
+         animation: heroEntrance 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+         opacity: 0;
+         transform: translateY(40px);
+      }
+      @keyframes heroEntrance {
+         to { opacity: 1; transform: translateY(0); }
+      }
+      .hero h1 {
+         font-size: clamp(2.6rem, 8vw, 4.8rem);
+         font-weight: 800;
+         line-height: 1.1;
+         letter-spacing: -0.02em;
+      }
+      .hero h1 span {
+         background: linear-gradient(135deg, var(--gold), var(--gold-glow));
+         -webkit-background-clip: text;
+         -webkit-text-fill-color: transparent;
+         background-clip: text;
+      }
+      .hero p {
+         margin-top: 20px;
+         font-size: 1.15rem;
+         color: var(--muted);
+         max-width: 680px;
+         margin-left: auto;
+         margin-right: auto;
+         line-height: 1.7;
+      }
+      .cta {
+         margin-top: 32px;
+         display: inline-block;
+         padding: 14px 38px;
+         background: linear-gradient(135deg, var(--gold), var(--gold-glow));
+         color: #0a0e1a;
+         font-weight: 700;
+         border-radius: 60px;
+         text-decoration: none;
+         font-size: 1rem;
+         box-shadow: 0 8px 24px rgba(219, 182, 90, 0.3);
+         transition: 0.3s ease;
+         letter-spacing: 0.5px;
+      }
+      .cta:hover {
+         transform: scale(1.05) translateY(-3px);
+         box-shadow: 0 16px 40px rgba(219, 182, 90, 0.4);
+      }
 
-/* =========================
-   HEADER PREMIUM
-========================= */
+      /* --- Sections communes --- */
+      section {
+         position: relative;
+         z-index: 2;
+         max-width: 1300px;
+         margin: 80px auto;
+         padding: 0 30px;
+      }
+      .section-title {
+         font-size: 2rem;
+         font-weight: 700;
+         letter-spacing: -0.5px;
+         margin-bottom: 30px;
+         display: inline-block;
+         background: linear-gradient(135deg, var(--gold), var(--gold-glow));
+         -webkit-background-clip: text;
+         -webkit-text-fill-color: transparent;
+         background-clip: text;
+         border-left: 4px solid var(--gold);
+         padding-left: 16px;
+      }
 
-header{
-  position:sticky;
-  top:0;
-  z-index:1000;
-  backdrop-filter: blur(14px);
-  background: rgba(5,7,13,0.75);
-  border-bottom:1px solid var(--stroke);
-  padding:18px 40px;
-}
+      /* --- Stats cards --- */
+      .stats {
+         display: grid;
+         grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+         gap: 20px;
+      }
+      .stat {
+         background: var(--panel);
+         backdrop-filter: blur(6px);
+         border: 1px solid var(--border);
+         border-radius: var(--radius);
+         padding: 28px 16px;
+         text-align: center;
+         transition: 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+         box-shadow: var(--shadow);
+      }
+      .stat:hover {
+         transform: translateY(-8px);
+         border-color: var(--gold);
+         background: var(--panel-hover);
+      }
+      .stat h2 {
+         font-size: 2.8rem;
+         font-weight: 800;
+         background: linear-gradient(135deg, var(--gold), var(--gold-glow));
+         -webkit-background-clip: text;
+         -webkit-text-fill-color: transparent;
+         background-clip: text;
+         margin-bottom: 6px;
+      }
+      .stat p {
+         color: var(--muted);
+         font-weight: 500;
+         font-size: 0.9rem;
+      }
 
-.header-wrap{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  max-width:1200px;
-  margin:auto;
-}
+      /* --- Services grid --- */
+      .grid {
+         display: grid;
+         grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+         gap: 24px;
+      }
+      .card {
+         background: var(--panel);
+         backdrop-filter: blur(6px);
+         border: 1px solid var(--border);
+         border-radius: var(--radius);
+         padding: 28px 22px;
+         transition: 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+         box-shadow: var(--shadow);
+         position: relative;
+         overflow: hidden;
+      }
+      .card::before {
+         content: '';
+         position: absolute;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 4px;
+         background: linear-gradient(90deg, var(--gold), var(--gold-glow));
+         opacity: 0;
+         transition: 0.4s;
+      }
+      .card:hover::before { opacity: 1; }
+      .card:hover {
+         transform: translateY(-10px) scale(1.01);
+         border-color: var(--gold);
+         background: var(--panel-hover);
+         box-shadow: 0 30px 50px -20px rgba(0,0,0,0.6);
+      }
+      .card h3 {
+         font-size: 1.2rem;
+         margin-bottom: 10px;
+         font-weight: 700;
+      }
+      .card p {
+         color: var(--muted);
+         font-size: 0.95rem;
+         line-height: 1.6;
+      }
 
-.logo{
-  font-weight:700;
-  letter-spacing:2px;
-  font-size:18px;
-}
+      /* --- Steps (process) --- */
+      .steps {
+         display: flex;
+         flex-direction: column;
+         gap: 12px;
+      }
+      .step {
+         padding: 18px 24px;
+         background: var(--panel);
+         border-left: 4px solid var(--gold);
+         border-radius: 12px;
+         color: var(--muted);
+         font-weight: 500;
+         transition: 0.3s;
+         backdrop-filter: blur(4px);
+         display: flex;
+         align-items: center;
+         gap: 12px;
+      }
+      .step::before {
+         content: "▹";
+         color: var(--gold);
+         font-weight: 700;
+         font-size: 1.2rem;
+      }
+      .step:hover {
+         background: var(--panel-hover);
+         transform: translateX(6px);
+         border-left-width: 8px;
+      }
 
-.logo span{
-  color:var(--gold);
-}
+      /* --- Contact --- */
+      .contact-wrap {
+         display: grid;
+         grid-template-columns: 1fr 1fr;
+         gap: 40px;
+         align-items: start;
+      }
+      @media (max-width: 700px) {
+         .contact-wrap { grid-template-columns: 1fr; }
+      }
 
-nav ul{
-  display:flex;
-  gap:25px;
-  list-style:none;
-}
+      form {
+         display: grid;
+         gap: 16px;
+      }
+      input, textarea {
+         padding: 14px 18px;
+         border-radius: 14px;
+         border: 1px solid var(--border);
+         background: rgba(255,255,255,0.04);
+         backdrop-filter: blur(4px);
+         color: var(--text);
+         font-size: 0.95rem;
+         transition: 0.3s;
+         font-family: inherit;
+      }
+      input:focus, textarea:focus {
+         outline: none;
+         border-color: var(--gold);
+         box-shadow: 0 0 0 4px rgba(219, 182, 90, 0.15);
+         background: rgba(255,255,255,0.08);
+      }
+      textarea { resize: vertical; min-height: 120px; }
+      button[type="submit"] {
+         padding: 14px 28px;
+         border: none;
+         border-radius: 60px;
+         background: linear-gradient(135deg, var(--gold), var(--gold-glow));
+         color: #0a0e1a;
+         font-weight: 700;
+         font-size: 1rem;
+         cursor: pointer;
+         transition: 0.3s;
+         box-shadow: 0 6px 20px rgba(219, 182, 90, 0.25);
+         letter-spacing: 0.5px;
+      }
+      button[type="submit"]:hover {
+         transform: scale(1.02) translateY(-2px);
+         box-shadow: 0 12px 36px rgba(219, 182, 90, 0.35);
+      }
 
-nav a{
-  color:var(--muted);
-  text-decoration:none;
-  font-size:14px;
-  transition:0.3s;
-}
+      .contact-infos {
+         padding: 24px;
+         background: var(--panel);
+         border-radius: var(--radius);
+         border: 1px solid var(--border);
+         backdrop-filter: blur(6px);
+         box-shadow: var(--shadow);
+      }
+      .contact-infos h3 {
+         color: var(--gold);
+         font-size: 1.4rem;
+         margin-bottom: 16px;
+      }
+      .contact-infos p {
+         color: var(--muted);
+         margin-bottom: 12px;
+         display: flex;
+         align-items: center;
+         gap: 12px;
+      }
+      .contact-infos a {
+         color: var(--gold-glow);
+         text-decoration: none;
+         transition: 0.2s;
+      }
+      .contact-infos a:hover { text-decoration: underline; }
+      .contact-infos i {
+         width: 24px;
+         color: var(--gold);
+      }
 
-nav a:hover{
-  color:var(--gold);
-}
-   .theme-btn{
-  background: transparent;
-  border: 1px solid var(--stroke);
-  color: var(--text);
-  padding: 6px 10px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 16px;
-}
+      /* --- Footer --- */
+      footer {
+         text-align: center;
+         padding: 40px 20px;
+         border-top: 1px solid var(--border);
+         color: var(--muted);
+         font-size: 0.9rem;
+         letter-spacing: 0.5px;
+         margin-top: 60px;
+         position: relative;
+         z-index: 2;
+      }
 
-/* =========================
-   HERO PREMIUM
-========================= */
+      /* --- Animations au scroll (fade-up) --- */
+      .fade {
+         opacity: 0;
+         transform: translateY(40px);
+         transition: opacity 0.9s cubic-bezier(0.23, 1, 0.32, 1), transform 0.9s cubic-bezier(0.23, 1, 0.32, 1);
+      }
+      .fade.show {
+         opacity: 1;
+         transform: translateY(0);
+      }
 
-.hero{
-  height:85vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  padding:40px;
-  position:relative;
-}
+      /* --- Responsive fine --- */
+      @media (max-width: 768px) {
+         header { padding: 12px 16px; }
+         .header-wrap { flex-direction: column; align-items: stretch; gap: 8px; }
+         nav ul { justify-content: center; gap: 4px; }
+         nav a { font-size: 12px; padding: 4px 10px; }
+         .hero { padding: 100px 16px 40px; min-height: 80vh; }
+         .hero h1 { font-size: 2.2rem; }
+         .section-title { font-size: 1.6rem; }
+         .stat h2 { font-size: 2.2rem; }
+      }
 
-.hero::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:url("https://images.unsplash.com/photo-1581092918056-0c4c3acd3789") center/cover;
-  opacity:0.18;
-}
-
-.hero-content{
-  position:relative;
-  max-width:850px;
-}
-
-.hero h1{
-  font-size:44px;
-  letter-spacing:1px;
-}
-
-.hero h1 span{
-  color:var(--gold);
-}
-
-.hero p{
-  margin-top:15px;
-  color:var(--muted);
-  font-size:16px;
-  line-height:1.6;
-}
-
-.cta{
-  margin-top:25px;
-  display:inline-block;
-  padding:12px 26px;
-  background:linear-gradient(135deg,var(--gold),var(--gold2));
-  color:#111;
-  font-weight:700;
-  border-radius:10px;
-  text-decoration:none;
-  transition:0.3s;
-}
-
-.cta:hover{
-  transform:scale(1.05);
-}
-
-/* =========================
-   SECTIONS
-========================= */
-
-section{
-  max-width:1200px;
-  margin:80px auto;
-  padding:0 40px;
-}
-
-.section-title{
-  font-size:22px;
-  margin-bottom:25px;
-  color:var(--gold);
-  letter-spacing:1px;
-}
-
-/* =========================
-   GRID SERVICES
-========================= */
-
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:18px;
-}
-
-.card{
-  background:var(--panel);
-  border:1px solid var(--stroke);
-  padding:22px;
-  border-radius:14px;
-  transition:0.4s;
-}
-
-.card:hover{
-  transform:translateY(-8px);
-  background:var(--panel2);
-  border-color:var(--gold);
-}
-
-.card h3{
-  margin-bottom:10px;
-  font-size:16px;
-}
-
-.card p{
-  color:var(--muted);
-  font-size:14px;
-}
-
-/* =========================
-   STATS BAR
-========================= */
-
-.stats{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:15px;
-}
-
-.stat{
-  text-align:center;
-  padding:20px;
-  background:var(--panel);
-  border:1px solid var(--stroke);
-  border-radius:12px;
-}
-
-.stat h2{
-  color:var(--gold);
-  font-size:26px;
-}
-
-/* =========================
-   PROCESS
-========================= */
-
-.steps{
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-
-.step{
-  padding:15px;
-  background:var(--panel);
-  border-left:3px solid var(--gold);
-  border-radius:10px;
-  color:var(--muted);
-}
-
-/* =========================
-   CONTACT
-========================= */
-
-form{
-  display:grid;
-  gap:12px;
-  max-width:600px;
-}
-
-input,textarea{
-  padding:12px;
-  border-radius:10px;
-  border:1px solid var(--stroke);
-  background:#0b0f1a;
-  color:white;
-}
-
-button{
-  padding:12px;
-  border:none;
-  border-radius:10px;
-  background:linear-gradient(135deg,var(--gold),var(--gold2));
-  font-weight:700;
-  cursor:pointer;
-}
-
-/* =========================
-   ANIMATION
-========================= */
-
-.fade{
-  opacity:0;
-  transform:translateY(30px);
-  transition:0.8s ease;
-}
-
-.fade.show{
-  opacity:1;
-  transform:translateY(0);
-}
-
-/* =========================
-   FOOTER
-========================= */
-
-footer{
-  text-align:center;
-  padding:40px;
-  border-top:1px solid var(--stroke);
-  color:var(--muted);
-  margin-top:80px;
-}
-
-</style>
+      /* --- petite touche de style pour les liens de navigation --- */
+      .nav-extra {
+         display: flex;
+         flex-wrap: wrap;
+         gap: 4px;
+      }
+   </style>
 </head>
-
 <body>
+
+<!-- Orbes flottants -->
+<div class="bg-orb orb1"></div>
+<div class="bg-orb orb2"></div>
 
 <!-- HEADER -->
 <header>
-  <div class="header-wrap">
-    <div class="logo">BET <span>STRUCTURE</span></div>
-
-    <nav>
-      <ul>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#expertise">Expertise</a></li>
-        <li><a href="#method">Méthode</a></li>
-        <li><a href="#contact">Contact</a></li>
-        <li><a href="calcul-poutre.html">Calcul Poutre</a></li>
-         <li><a href="Learning.html">Learning</a></li>   
-        <li><a href="PriseRDV.html">Prise de Rendez-vous</a></li>
-         <li><a href="articles.html">Articles</a></li>
-         <li><a href="espacedetente.html">Espace détente</a></li>
-         <li><a href="indexboutique.html">Boutique StyleShop</a></li>
-      </ul><li>
-  <button id="themeToggle" class="theme-btn">🌙</button>
-</li>
-    </nav>
-  </div>
+   <div class="header-wrap">
+      <div class="logo">BET <span>STRUCTURE</span></div>
+      <nav>
+         <ul>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#expertise">Expertise</a></li>
+            <li><a href="#method">Méthode</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="calcul-poutre.html">Calcul Poutre</a></li>
+            <li><a href="Learning.html">Learning</a></li>
+            <li><a href="PriseRDV.html">Prise de Rendez-vous</a></li>
+            <li><a href="articles.html">Articles</a></li>
+            <li><a href="espacedetente.html">Espace détente</a></li>
+            <li><a href="indexboutique.html">Boutique StyleShop</a></li>
+         </ul>
+         <button id="themeToggle" class="theme-btn" aria-label="Basculer le thème">🌙</button>
+      </nav>
+   </div>
 </header>
 
 <!-- HERO -->
-<section class="hero">
-  <div class="hero-content fade">
-    <h1>Ingénierie <span>Structurelle</span> </h1>
-    <p>
-      Conception, calcul et optimisation de structures béton, acier et mixtes
-      selon les Eurocodes pour bâtiments complexes, industriels et tertiaires.
-    </p>
-    <a class="cta" href="#contact">Demander une étude</a>
-  </div>
+<section class="hero" id="hero">
+   <div class="hero-content">
+      <h1>Ingénierie <span>Structurelle</span></h1>
+      <p>Conception, calcul et optimisation de structures béton, acier et mixtes selon les Eurocodes pour bâtiments complexes, industriels et tertiaires.</p>
+      <a class="cta" href="#contact">Demander une étude</a>
+   </div>
 </section>
 
-<!-- STATS -->
-<section class="fade">
-  <h2 class="section-title">EXPERTISE</h2>
-
-  <div class="stats">
-    <div class="stat">
-      <h2>1+</h2>
-      <p>Années d’expérience</p>
-    </div>
-    <div class="stat">
-      <h2>Eurocodes</h2>
-      <p>EC0 à EC3 maîtrisés</p>
-    </div>
-    <div class="stat">
-      <h2>100%</h2>
-      <p>Projets optimisés</p>
-    </div>
-    <div class="stat">
-      <h2>24h</h2>
-      <p>Réponse rapide</p>
-    </div>
-  </div>
+<!-- STATS (EXPERTISE) -->
+<section id="expertise" class="fade">
+   <h2 class="section-title">EXPERTISE</h2>
+   <div class="stats">
+      <div class="stat">
+         <h2>1+</h2>
+         <p>Années d’expérience</p>
+      </div>
+      <div class="stat">
+         <h2>Eurocodes</h2>
+         <p>EC0 à EC3 maîtrisés</p>
+      </div>
+      <div class="stat">
+         <h2>100%</h2>
+         <p>Projets optimisés</p>
+      </div>
+      <div class="stat">
+         <h2>24h</h2>
+         <p>Réponse rapide</p>
+      </div>
+   </div>
 </section>
 
 <!-- SERVICES -->
 <section id="services" class="fade">
-  <h2 class="section-title">SERVICES</h2>
-
-  <div class="grid">
-
-    <div class="card">
-      <h3>Études d’exécution</h3>
-      <p>Plans de coffrage, ferraillage et dossiers techniques complets.</p>
-    </div>
-
-    <div class="card">
-      <h3>Diagnostic structure</h3>
-      <p>Analyse complète des pathologies et risques structurels.</p>
-    </div>
-
-    <div class="card">
-      <h3>Réhabilitation</h3>
-      <p>Renforcement et mise aux normes des ouvrages existants.</p>
-    </div>
-
-    <div class="card">
-      <h3>Fondations</h3>
-      <p>Études géotechniques et interaction sol-structure.</p>
-    </div>
-
-  </div>
+   <h2 class="section-title">SERVICES</h2>
+   <div class="grid">
+      <div class="card">
+         <h3>Études d’exécution</h3>
+         <p>Plans de coffrage, ferraillage et dossiers techniques complets.</p>
+      </div>
+      <div class="card">
+         <h3>Diagnostic structure</h3>
+         <p>Analyse complète des pathologies et risques structurels.</p>
+      </div>
+      <div class="card">
+         <h3>Réhabilitation</h3>
+         <p>Renforcement et mise aux normes des ouvrages existants.</p>
+      </div>
+      <div class="card">
+         <h3>Fondations</h3>
+         <p>Études géotechniques et interaction sol-structure.</p>
+      </div>
+   </div>
 </section>
 
-<!-- METHOD -->
+<!-- METHODOLOGIE -->
 <section id="method" class="fade">
-  <h2 class="section-title">MÉTHODOLOGIE</h2>
-
-  <div class="steps">
-    <div class="step">1. Analyse du projet et des contraintes</div>
-    <div class="step">2. Modélisation structurelle avancée</div>
-    <div class="step">3. Calcul et optimisation Eurocodes</div>
-    <div class="step">4. Production des plans EXE</div>
-    <div class="step">5. Suivi et assistance chantier</div>
-  </div>
+   <h2 class="section-title">MÉTHODOLOGIE</h2>
+   <div class="steps">
+      <div class="step">1. Analyse du projet et des contraintes</div>
+      <div class="step">2. Modélisation structurelle avancée</div>
+      <div class="step">3. Calcul et optimisation Eurocodes</div>
+      <div class="step">4. Production des plans EXE</div>
+      <div class="step">5. Suivi et assistance chantier</div>
+   </div>
 </section>
 
 <!-- CONTACT -->
 <section id="contact" class="fade">
-  <h2 class="section-title">CONTACT</h2>
+   <h2 class="section-title">CONTACT</h2>
+   <div class="contact-wrap">
+      <!-- Formulaire -->
+      <form action="https://formspree.io/f/xlgvkwng" method="POST">
+         <input type="text" name="name" placeholder="Nom complet" required>
+         <input type="email" name="email" placeholder="Email professionnel" required>
+         <textarea rows="5" name="message" placeholder="Décrivez votre projet" required></textarea>
+         <button type="submit">Envoyer la demande</button>
+      </form>
 
-  <div style="display:grid; grid-template-columns:1fr 1fr; gap:30px; align-items:start;">
+      <!-- Coordonnées -->
+      <div class="contact-infos">
+         <h3><i class="fas fa-building" style="margin-right:8px;"></i>Coordonnées</h3>
+         <p><i class="fas fa-envelope"></i> Email : <a href="mailto:aymaneabidine@gmail.com">aymaneabidine@gmail.com</a></p>
+         <p><i class="fas fa-clock"></i> ⏱ Réponse sous 24h</p>
+         <p><i class="fas fa-hard-hat"></i> 🏗 BET STRUCTURE<br>Bureau d’études structure – Ingénierie béton & acier</p>
+         <p style="margin-top:16px; font-size:0.85rem; opacity:0.7;">Disponible pour projets France & international</p>
+      </div>
+   </div>
+</section>
 
-    <!-- FORMULAIRE -->
-    <form action="https://formspree.io/f/xlgvkwng" method="POST">
-      <input type="text" name="name" placeholder="Nom complet" required>
-      <input type="email" name="email" placeholder="Email professionnel" required>
-      <textarea rows="5" name="message" placeholder="Décrivez votre projet" required></textarea>
-      <button type="submit">Envoyer la demande</button>
-    </form>
-
-    <!-- CONTACT ENTREPRISE -->
-    <div style="padding:20px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:12px;">
-
-      <h3 style="color:#d6b25e; margin-bottom:10px;">Coordonnées</h3>
-
-      <p style="margin-bottom:10px; color:#a9b4d0;">
-        📧 Email : 
-        <a href="mailto:aymaneabidine@gmail.com" style="color:#ffd36e; text-decoration:none;">
-          aymaneabidine@gmail.com
-        </a>
-      </p>
-
-      <p style="margin-bottom:10px; color:#a9b4d0;">
-        ⏱ Réponse sous 24h
-      </p>
-
-      <p style="margin-bottom:10px; color:#a9b4d0;">
-        🏗 BET STRUCTURE<br>
-        Bureau d’études structure – Ingénierie béton & acier
-      </p>
-
-      <p style="margin-top:15px; font-size:13px; color:#777;">
-        Disponible pour projets France & international
-      </p>
-
-    </div>
-
-  </div>
-
-
+<!-- FOOTER -->
 <footer>
-  BET STRUCTURE — Ingénierie & Calcul de Structures
+   BET STRUCTURE — Ingénierie & Calcul de Structures
 </footer>
 
+<!-- SCRIPTS -->
 <script>
-const elements=document.querySelectorAll(".fade");
+   // --- Theme toggle ---
+   const btn = document.getElementById('themeToggle');
+   btn.addEventListener('click', () => {
+      document.body.classList.toggle('light');
+      btn.textContent = document.body.classList.contains('light') ? '☀️' : '🌙';
+   });
 
-const observer=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      e.target.classList.add("show");
-    }
-  });
-},{threshold:0.15});
+   // --- Scroll animations (fade-up) ---
+   const faders = document.querySelectorAll('.fade');
+   const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+         if (entry.isIntersecting) {
+            entry.target.classList.add('show');
+            // Pour un effet plus progressif, on peut dé-stagger
+         }
+      });
+   }, { threshold: 0.12, rootMargin: '0px 0px -20px 0px' });
 
-elements.forEach(el=>observer.observe(el));
-</script>
-   <script>
-const btn = document.getElementById("themeToggle");
+   faders.forEach(el => observer.observe(el));
 
-btn.addEventListener("click", () => {
-  document.body.classList.toggle("light");
-
-  if(document.body.classList.contains("light")){
-    btn.textContent = "☀️";
-  } else {
-    btn.textContent = "🌙";
-  }
-});
+   // --- (Optionnel) Compteur animé pour les stats ---
+   // Si vous voulez animer les chiffres, décommentez ce bloc :
+   /*
+   const stats = document.querySelectorAll('.stat h2');
+   const animateNumber = (el, target, suffix='') => {
+      let current = 0;
+      const step = Math.ceil(target / 40);
+      const timer = setInterval(() => {
+         current += step;
+         if (current >= target) {
+            clearInterval(timer);
+            current = target;
+         }
+         el.textContent = current + suffix;
+      }, 30);
+   };
+   // Pour démarrer l'animation au scroll, on pourrait utiliser un autre observer
+   */
 </script>
 
 </body>
